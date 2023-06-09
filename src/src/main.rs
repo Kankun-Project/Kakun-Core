@@ -25,5 +25,11 @@ async fn main() {
                 .arg(Arg::with_name("beneficiary").required(true).help("Proposal beneficiary")),
         )
         .get_matched();
+
+    let dao = Arc::new(Mutex::new(Dao::new()));
+
+    let create_member_route = wrap::path!("members");
+        .and(warp::post())
+        .and(warp::body::json())
 }
 
