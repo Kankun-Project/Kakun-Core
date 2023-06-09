@@ -1,4 +1,4 @@
 [workspace]
 members = [
-    "src/kankun_core_backend",
+    "src/kankun_backend",
 ]

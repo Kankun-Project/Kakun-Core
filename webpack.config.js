@@ -37,7 +37,7 @@ const canisterEnvVariables = initCanisterEnv();
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
-const frontendDirectory = "kankun_core_frontend";
+const frontendDirectory = "kankun_frontend";
 
 const frontend_entry = path.join("src", frontendDirectory, "src", "index.html");
 
