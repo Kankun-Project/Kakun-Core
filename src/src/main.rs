@@ -31,5 +31,40 @@ async fn main() {
     let create_member_route = wrap::path!("members");
         .and(warp::post())
         .and(warp::body::json())
+        .and(with_dao(dao.clone()))
+        .and_then(create_member);
+
+    let create_proposal_route = warp::path!("proposals")
+        .and(warp::post())
+        .and(warp::body::json())
+        .and(with_dao(dao.clone()))
+        .and_then(create_proposal);
+    
+    let api_routes = create_member_route.or(create_proposal_route);
+    
+    if let Some(matches) = matches.subcommand_matches("create_member") {
+        let address = matches.value_of("address").unwrap().to_string();
+        let voting_power = matches.value_of("voting_power").unwrap().parse::<u32>().unwrap();
+        dao.lock().unwrap().add_member(address, voting_power);
+        println!("Member added!");
+    } else if let Some(matches) = matches.subcommand_matches("create_proposal") {
+        let id = matches.value_of("id").unwrap().parse::<u32>().unwrap();
+        let title = matches.value_of("title").unwrap().to_string();
+        let description = matches.value_of("description").unwrap().to_string();
+        let amount = matches.value_of("amount").unwrap().parse::<f64>().unwrap();
+        let beneficiary = matches.value_of("beneficiary").unwrap().to_string();
+
+        let proposal = Proposal {
+            id,
+            title,
+            description,
+            amount,
+            beneficiary,
+            votes_for: 0,
+            votes_against: 0,
+        };
+        dao.add_proposal(proposal);
+        println!("Proposal added!");
+    }
 }
 
