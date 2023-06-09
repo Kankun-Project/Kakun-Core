@@ -47,4 +47,20 @@ impl Dao {
     pub fn add_member(&mut self, address: String, voting_power: u32) {
         self.members.insert(address, Member { address: address.clone(), voting_power });
     }
+
+    pub fn add_proposal(&mut self, proposal: Proposal) {
+        self.proposals.insert(proposal.id, proposal);
+    }
+
+    pub fun vote(&mut self, member_address: &str, proposal_id: u32, approve: bool) -> Result<(), DaoError> {
+        let member;
+        let proposal;
+
+        if approve {
+            proposal.votes_for += member;
+        } else {
+            proposal.votes_against += member;
+        }
+        Ok(())
+    }
 }
