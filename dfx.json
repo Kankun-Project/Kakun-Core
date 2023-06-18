@@ -1,20 +1,20 @@
 {
   "canisters": {
-    "kankun_backend": {
-      "candid": "src/kankun_backend/kankun_backend.did",
-      "package": "kankun_backend",
+    "kankun_core_backend": {
+      "candid": "src/kankun_core_backend/kankun_core_backend.did",
+      "package": "kankun_core_backend",
       "type": "rust"
     },
-    "kankun_frontend": {
+    "kankun_core_frontend": {
       "dependencies": [
-        "kankun_backend"
+        "kankun_core_backend"
       ],
       "frontend": {
-        "entrypoint": "src/kankun_frontend/src/index.html"
+        "entrypoint": "src/kankun_core_frontend/src/index.html"
       },
       "source": [
-        "src/kankun_frontend/assets",
-        "dist/kankun_frontend/"
+        "src/kankun_core_frontend/assets",
+        "dist/kankun_core_frontend/"
       ],
       "type": "assets"
     }
@@ -25,12 +25,6 @@
       "packtool": ""
     }
   },
-  "dfx": "0.11.0",
-  "networks": {
-    "local": {
-      "bind": "127.0.0.1:8000",
-      "type": "ephemeral"
-    }
-  },
+  "output_env_file": ".env",
   "version": 1
 }
